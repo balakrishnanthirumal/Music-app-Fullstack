@@ -2,6 +2,9 @@ import { axiosInstance } from "@/lib/axios";
 import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
+import { UseSelector, useDispatch } from "react-redux";
+import { checkAdminStatus } from "@/store/useAuthStore";
+import { AppDispatch } from "@/store/store";
 
 const updateApiToken = (token: string | null) => {
   if (token) {
@@ -14,12 +17,16 @@ const updateApiToken = (token: string | null) => {
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { getToken } = useAuth();
   const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const initAuth = async () => {
       try {
         const token = await getToken();
         updateApiToken(token);
+        if (token) {
+          await dispatch(checkAdminStatus);
+        }
       } catch (error) {
         updateApiToken(null);
         console.log("Error in auth provider");

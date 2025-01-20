@@ -6,6 +6,7 @@ const initialState = {
   songs: [],
   isLoading: false,
   error: null,
+  currentAlbum: null,
 };
 
 export const fetchAlbum = createAsyncThunk(
@@ -20,6 +21,22 @@ export const fetchAlbum = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchAlbumById = createAsyncThunk(
+  "music/fetchAlbumById",
+  async ({ id }, { rejectWithValue }) => {
+    console.log(id);
+    try {
+      const response = await axiosInstance.get(`/albums/${id}`);
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch album");
+      }
+      return response.data; // Return the album data on success
+    } catch (error) {
+      return rejectWithValue(error.message); // Handle and return error message on failure
     }
   }
 );
@@ -42,6 +59,17 @@ const useMusicStore = createSlice({
         (state.isLoading = false), (state.albums = action.payload);
       })
       .addCase(fetchAlbum.rejected, (state, action) => {
+        (state.isLoading = false),
+          (state.error = action.payload | "error occured");
+      })
+
+      .addCase(fetchAlbumById.pending, (state) => {
+        (state.isLoading = true), (state.error = null);
+      })
+      .addCase(fetchAlbumById.fulfilled, (state, action) => {
+        (state.isLoading = false), (state.currentAlbum = action.payload);
+      })
+      .addCase(fetchAlbumById.rejected, (state, action) => {
         (state.isLoading = false),
           (state.error = action.payload | "error occured");
       });
