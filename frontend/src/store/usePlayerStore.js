@@ -14,27 +14,31 @@ const playerStore = createSlice({
   reducers: {
     initaliseQueue: (state, action) => {
       state.queue = action.payload;
-      state.queue = state.queue || action.payload.songs[0];
+      state.queue = state.queue || action.payload;
       state.currentIndex === -1 ? 0 : state.currentIndex;
     },
 
     playAlbum: (state, action) => {
-      if (action.payload.songs.length === 0) return;
+      if (action.payload.length === 0) return;
 
-      const song = action.payload.songs[action.payload.startIndex];
+      let { songs, index } = action.payload;
+      if ((index = -1)) index = 0;
+      console.log(action.payload.songs);
+      const song = songs[index];
 
-      state.queue = action.payload.songs;
+      state.queue = songs;
       state.currentSong = song;
-      state.currentIndex = action.payload.startIndex;
+      state.currentIndex = index;
       state.isPlaying = true;
     },
 
     setCurrentSong: (state, action) => {
-      if (!action.payload.song) return;
+      if (!action.payload) return;
 
+      const { song } = action.payload;
       const songIndex = state.queue.findIndex((s) => s._id === song._id);
 
-      state.currentSong = action.payload.song;
+      state.currentSong = song;
       state.isPlaying = true;
       state.currentIndex = songIndex !== -1 ? songIndex : state.currentIndex;
     },
@@ -52,7 +56,7 @@ const playerStore = createSlice({
 
       if (nextIndex < state.queue.length) {
         const nextSong = state.queue[nextIndex];
-        state.currentSong = nextIndex;
+        state.currentSong = nextSong;
         state.currentIndex = nextIndex;
         state.isPlaying = true;
       } else {

@@ -1,6 +1,7 @@
 import FeaturedSongSkeletion from "@/layout/component/skeletons/FeaturedSongSkeletion";
 
 import { useSelector } from "react-redux";
+import PlayButton from "./PlayButton";
 const FeaturedSongs = () => {
   const { isLoading, featuredSongs, error } = useSelector(
     (state: any) => state.album
@@ -26,6 +27,7 @@ const FeaturedSongs = () => {
             <div className="font-medium truncate">{song.title}</div>
             <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
           </div>
+          <PlayButton song={song} />
         </div>
       ))}
     </div>
