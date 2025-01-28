@@ -10,6 +10,12 @@ const initialState = {
   madeForYouSongs: [],
   featuredSongs: [],
   trendingSongs: [],
+  stats: {
+    totalSongs: 0,
+    totalAlbums: 0,
+    totalUsers: 0,
+    totalArtists: 0,
+  },
 };
 
 export const fetchAlbum = createAsyncThunk(
@@ -89,6 +95,39 @@ export const fetchTrendingSongs = createAsyncThunk(
   }
 );
 
+// export const fetchStats = createAsyncThunk(
+//   "fetchStats",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axiosInstance.get("/stats");
+
+//       if (response.status !== 200)
+//         throw new Error("Error in fetching the data");
+//       console.log(response.data);
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+// export const fetchSongs = createAsyncThunk(
+//   "fetchSongs",
+
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axiosInstance.get("/songs/");
+
+//       if (response.status !== 200)
+//         throw new Error("Error in fetching the data");
+//       console.log(response.data);
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
 const useMusicStore = createSlice({
   name: "music",
   initialState,
@@ -154,6 +193,28 @@ const useMusicStore = createSlice({
         (state.isLoading = false),
           (state.error = action.payload | "error occured");
       });
+
+    // .addCase(fetchSongs.pending, (state) => {
+    //   (state.isLoading = true), (state.error = null);
+    // })
+    // .addCase(fetchSongs.fulfilled, (state, action) => {
+    //   (state.isLoading = false), (state.trendingSongs = action.payload);
+    // })
+    // .addCase(fetchSongs.rejected, (state, action) => {
+    //   (state.isLoading = false),
+    //     (state.error = action.payload | "error occured");
+    // });
+
+    // .addCase(fetchStats.pending, (state) => {
+    //   (state.isLoading = true), (state.error = null);
+    // })
+    // .addCase(fetchStats.fulfilled, (state, action) => {
+    //   (state.isLoading = false), (state.trendingSongs = action.payload);
+    // })
+    // .addCase(fetchStats.rejected, (state, action) => {
+    //   (state.isLoading = false),
+    //     (state.error = action.payload | "error occured");
+    // });
   },
 });
 

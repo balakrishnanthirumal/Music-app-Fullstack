@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import reducer from "./useMusicStore";
 
 const initialState = {
-  isAdmin: true,
+  isAdmin: null,
   error: null,
   isLoading: false,
 };
@@ -37,7 +37,7 @@ const adminCheck = createSlice({
         state.isLoading = false;
         state.isAdmin = action.payload.isAdmin;
       })
-      .addCase(checkAdminStatus.rejected, (state) => {
+      .addCase(checkAdminStatus.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload | "Error occured";
       });

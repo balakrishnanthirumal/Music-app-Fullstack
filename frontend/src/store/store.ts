@@ -5,9 +5,10 @@ import adminReducer from "./useAuthStore.js";
 import musicPlayerReducer from "./usePlayerStore.js";
 const store = configureStore({
   reducer: {
+    admin: adminReducer,
     album: albumReducer,
     chat: chatReducer,
-    admin: adminReducer,
+
     player: musicPlayerReducer,
   },
   devTools: true,

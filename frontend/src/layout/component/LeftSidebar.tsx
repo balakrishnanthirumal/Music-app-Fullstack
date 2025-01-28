@@ -70,7 +70,7 @@ const LeftSidebar = () => {
             {isLoading ? (
               <PlaylistSkeleton />
             ) : (
-              albums.map((album: any) => (
+              albums?.map((album: any) => (
                 <Link
                   to={`/album/${album._id}`}
                   key={album._id}

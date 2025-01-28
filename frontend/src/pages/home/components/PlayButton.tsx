@@ -6,7 +6,6 @@ import { Pause, Play } from "lucide-react";
 const PlayButton = ({ song }) => {
   const { currentSong, isPlaying } = useSelector((state: any) => state.player);
   const dispatch = useDispatch();
-  console.log(song);
   const isCurrentSong = currentSong?._id === song?._id;
 
   const handlePlay = () => {

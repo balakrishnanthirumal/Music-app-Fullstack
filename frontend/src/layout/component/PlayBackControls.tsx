@@ -1,16 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
 import { togglePlay, playNext, playPrevious } from "@/store/usePlayerStore";
 import { useEffect, useRef, useState } from "react";
-import store from "@/store/store";
 import { Button } from "@/components/ui/button";
 import {
+  Laptop2,
+  ListMusic,
+  Mic2,
   Pause,
   Play,
   Repeat,
   Shuffle,
   SkipBack,
   SkipForward,
+  Volume1,
 } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
 
 const PlayBackControls = () => {
   const { currentSong, isPlaying } = useSelector((state: any) => state.player);
@@ -130,6 +134,62 @@ const PlayBackControls = () => {
             >
               <Repeat className="h-4 w-4" />
             </Button>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-2 w-full">
+            <div className="text-xs text-zinc-400">
+              {Math.floor(currentTime)}s
+            </div>
+            <Slider
+              value={[currentTime]}
+              max={duration || 100}
+              step={1}
+              className="w-full hover:cursor-grab active:cursor-grabbing"
+              onValueChange={handleSeek}
+            />
+            <div className="text-xs text-zinc-400">{Math.floor(duration)}s</div>
+          </div>
+        </div>
+
+        {/* volume controller */}
+
+        <div className="hidden sm:flex items-center gap-4 min-w-[180px] w-[30%] justify-end">
+          <Button
+            className="hover:text-white text-zinc-400"
+            size="icon"
+            variant="ghost"
+          >
+            <Mic2 className="h-4 max-w-4" />
+          </Button>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="hover:text-white text-zinc-400"
+          >
+            <ListMusic className="h-4 w-4" />
+          </Button>
+          <Button
+            className="hover:text-white text-zinc-400"
+            size="icon"
+            variant="ghost"
+          >
+            <Laptop2 className="h-4 w-4" />
+          </Button>
+
+          <div className="flex items-center gap-2">
+            <Volume1 className="h-4 w-4" />
+            <Slider
+              value={[volume]}
+              max={100}
+              step={1}
+              className="w-24 hover:cursor-grab active:cursor-grabbing"
+              onValueChange={(value) => {
+                setVolume(value[0]);
+                if (audioRef.current) {
+                  audioRef.current.volume = value[0] / 100;
+                }
+              }}
+            />
           </div>
         </div>
       </div>

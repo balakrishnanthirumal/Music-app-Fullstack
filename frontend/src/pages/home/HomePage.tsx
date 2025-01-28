@@ -10,6 +10,7 @@ import { AppDispatch } from "@/store/store";
 import FeaturedSongs from "./components/FeaturedSongs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SectionGrid from "./components/SectionGrid";
+import { initaliseQueue } from "../../store/usePlayerStore";
 
 const HomePage = () => {
   const { madeForYouSongs, featuredSongs, trendingSongs, isLoading } =
@@ -22,6 +23,17 @@ const HomePage = () => {
     dispatch(fetchMadeForYouSongs());
     dispatch(fetchTrendingSongs());
   }, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
+
+  useEffect(() => {
+    if (
+      madeForYouSongs.length > 0 &&
+      featuredSongs.length > 0 &&
+      trendingSongs.length > 0
+    ) {
+      const allSongs = [...featuredSongs, ...madeForYouSongs, ...trendingSongs];
+      dispatch(initaliseQueue(allSongs));
+    }
+  }, [initaliseQueue, featuredSongs, madeForYouSongs, trendingSongs]);
 
   return (
     <main className="rounded-md overflow-hidden h-full bg-gradient-to-b from-zinc-800 to-zinc-900">

@@ -18,55 +18,76 @@ export const createSong = async (req, res, next) => {
   try {
     if (!req.files || !req.files.audioFile || !req.files.imageFile) {
       return res.status(400).json({ message: "Please upload all files" });
-
-      const { title, artist, albumId, duration } = req.body;
-      const audioFile = req.file.audioFile;
-      const imageFile = req.files.imageFile;
-
-      const audioUrl = await uploadToCloudinary(audioFile);
-      const imageUrl = await uploadToCloudinary(imageFile);
-      const song = new Song({
-        title,
-        artist,
-        audioUrl,
-        imageUrl,
-        duration,
-        albumId: albumId || null,
-      });
-
-      await song.save();
-
-      //if song belongs to album update album's songs array
-      if (albumId) {
-        await Album.findByIdAndUpdate(albumId, {
-          $push: { songs: song._id },
-        });
-      }
-      res.status(201).json(song);
     }
+
+    const { title, artist, albumId, duration } = req.body;
+    const audioFile = req.files?.audioFile;
+    const imageFile = req.files?.imageFile;
+    console.log(audioFile);
+
+    const audioUrl = await uploadToCloudinary(audioFile);
+    const imageUrl = await uploadToCloudinary(imageFile);
+    const song = new Song({
+      title,
+      artist,
+      audioUrl,
+      imageUrl,
+      duration,
+      albumId: albumId || null,
+    });
+
+    await song.save();
+
+    //if song belongs to album update album's songs array
+    if (albumId) {
+      await Album.findByIdAndUpdate(albumId, {
+        $push: { songs: song._id },
+      });
+    }
+    res.status(201).json(song);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
 
 export const deleteSong = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id; // Extracting the song ID from params
+    console.log("ID Received:", id);
 
     const song = await Song.findById(id);
+    if (!song) {
+      console.log("Song not found for ID:", id);
+      return res.status(404).json({ message: "Song not found" });
+    }
+    console.log("Fetched Song:", song);
 
-    //of song belongs to the album
+    // Check if the song belongs to an album and update the album
     if (song.albumId) {
-      await Album.findByAndUpdate(song.albumId, {
+      const album = await Album.findById(song.albumId);
+      if (!album) {
+        console.log("Associated album not found for ID:", song.albumId);
+        return res.status(404).json({ message: "Associated album not found" });
+      }
+
+      console.log("Album before update:", album);
+
+      // Remove the song's ID from the album's songs array
+      await Album.findByIdAndUpdate(song.albumId, {
         $pull: { songs: song._id },
       });
+
+      console.log(`Song ID ${song._id} removed from album ${song.albumId}`);
     }
 
+    // Delete the song from the Songs collection
     await Song.findByIdAndDelete(id);
+    console.log("Song deleted successfully:", id);
 
     res.status(200).json({ message: "Song deleted successfully" });
   } catch (error) {
-    console.log("Error in deleting song");
+    console.error("Error in deleteSong function:", error);
     next(error);
   }
 };
