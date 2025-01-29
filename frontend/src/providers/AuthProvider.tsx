@@ -2,7 +2,7 @@ import { axiosInstance } from "@/lib/axios";
 import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-import { UseSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { checkAdminStatus } from "@/store/useAuthStore";
 import { AppDispatch } from "@/store/store";
 

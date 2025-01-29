@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/table";
 import { axiosInstance } from "@/lib/axios";
 import { Calendar, Trash2 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const SongsTable = () => {
-  const [songs, setSongs] = useState(null);
+  const [songs, setSongs] = useState<any>(null);
   const [isSongsLoading, setIsSongsLoading] = useState(false);
-  const [isAlbumLoading, setIsAlbumLoading] = useState(false);
+  // const [isAlbumLoading, setIsAlbumLoading] = useState(false);
   const [albums, setAlbums] = useState(null);
 
   const fetchSongs = async () => {
@@ -31,7 +31,7 @@ const SongsTable = () => {
     }
   };
 
-  const deleteSong = async (id) => {
+  const deleteSong = async (id: any) => {
     try {
       setIsSongsLoading(true);
       console.log(id);
@@ -45,26 +45,24 @@ const SongsTable = () => {
 
   const fetchAlbum = async () => {
     try {
-      setIsAlbumLoading(true);
       const response = await axiosInstance.get("/albums");
       setAlbums(response.data);
-      setIsAlbumLoading(false);
     } catch (error) {
       console.log(error);
       toast.error("Failed to fetch albums");
     }
   };
 
-  const deleteAlbum = async (id) => {
-    try {
-      setIsAlbumLoading(true);
-      await axiosInstance.delete(`/admin/albums/${id}`);
-      setIsAlbumLoading(false);
-      toast.success("Album deleted successfully");
-    } catch (error) {
-      toast.error("Error in deleting");
-    }
-  };
+  // const deleteAlbum = async (id:any) => {
+  //   try {
+  //     setIsAlbumLoading(true);
+  //     await axiosInstance.delete(`/admin/albums/${id}`);
+  //     setIsAlbumLoading(false);
+  //     toast.success("Album deleted successfully");
+  //   } catch (error) {
+  //     toast.error("Error in deleting");
+  //   }
+  // };
 
   console.log(albums);
 
@@ -93,7 +91,7 @@ const SongsTable = () => {
       </TableHeader>
 
       <TableBody>
-        {songs?.map((song) => (
+        {songs?.map((song: any) => (
           <TableRow key={song._id} className="hover:bg-zinc-800/50">
             <TableCell>
               <img

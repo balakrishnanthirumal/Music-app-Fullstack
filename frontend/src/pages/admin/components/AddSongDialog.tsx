@@ -1,5 +1,4 @@
 import {
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,

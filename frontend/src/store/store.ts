@@ -1,13 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import albumReducer from "./useMusicStore.js";
 import chatReducer from "./useChatStore.js";
+
+import albumReducer from "./useMusicStore.js";
 import adminReducer from "./useAuthStore.js";
 import musicPlayerReducer from "./usePlayerStore.js";
 const store = configureStore({
   reducer: {
+    chat: chatReducer,
     admin: adminReducer,
     album: albumReducer,
-    chat: chatReducer,
 
     player: musicPlayerReducer,
   },

@@ -3,7 +3,7 @@ import { setCurrentSong, togglePlay } from "@/store/usePlayerStore";
 import { Button } from "@/components/ui/button";
 import { Pause, Play } from "lucide-react";
 
-const PlayButton = ({ song }) => {
+const PlayButton = ({ song }: any) => {
   const { currentSong, isPlaying } = useSelector((state: any) => state.player);
   const dispatch = useDispatch();
   const isCurrentSong = currentSong?._id === song?._id;

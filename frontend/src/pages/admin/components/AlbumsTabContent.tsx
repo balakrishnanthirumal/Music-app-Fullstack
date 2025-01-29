@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,12 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Library } from "lucide-react";
 import AlbumTable from "./AlbumTable";
-import { axiosInstance } from "@/lib/axios";
-import toast from "react-hot-toast";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAlbum } from "@/store/useMusicStore";
-import { AppDispatch } from "@/store/store";
+
 import AddAlbumDialog from "./AddAlbumDialog";
 
 const AlbumsTabContent = () => {

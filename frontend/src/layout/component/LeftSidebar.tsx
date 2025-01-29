@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { HomeIcon, Key, Library, MessageCircle } from "lucide-react";
+import { HomeIcon, Library, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { SignedIn } from "@clerk/clerk-react";
@@ -12,9 +12,7 @@ import { AppDispatch } from "@/store/store";
 
 const LeftSidebar = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { songs, albums, isLoading, error } = useSelector(
-    (state: any) => state.album
-  );
+  const { albums, isLoading } = useSelector((state: any) => state.album);
 
   useEffect(() => {
     dispatch(fetchAlbum());
@@ -39,7 +37,7 @@ const LeftSidebar = () => {
             <span className="hidden md:inline">Home</span>
           </Link>
 
-          <SignedIn>
+          {/* <SignedIn>
             <Link
               to={"/chat"}
               className={cn(
@@ -53,7 +51,7 @@ const LeftSidebar = () => {
               <MessageCircle className="mr-2 size-5" />
               <span className="hidden md:inline">Messages</span>
             </Link>
-          </SignedIn>
+          </SignedIn> */}
         </div>
 
         {/* library section */}

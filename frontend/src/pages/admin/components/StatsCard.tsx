@@ -1,6 +1,6 @@
 import { CardContent } from "@/components/ui/card";
 
-const StatsCard = ({ bgColor, icon: Icon, iconColor, label, value }) => {
+const StatsCard = ({ bgColor, icon: Icon, iconColor, label, value }: any) => {
   return (
     <div className="bg-zinc-800//50 border-zinc-700/50 hover:bg-zinc-800/80 transition-colors rounded-md">
       <CardContent className="p-6 rounded-md">

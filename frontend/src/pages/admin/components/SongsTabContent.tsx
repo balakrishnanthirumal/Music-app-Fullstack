@@ -9,8 +9,6 @@ import {
 import { Music } from "lucide-react";
 import SongsTable from "./SongsTable";
 import AddSongDialog from "./AddSongDialog";
-import { axiosInstance } from "@/lib/axios";
-import toast from "react-hot-toast";
 
 const SongsTabContent = () => {
   return (

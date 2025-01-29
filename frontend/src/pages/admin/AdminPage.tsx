@@ -1,6 +1,4 @@
-import { useAuth } from "@clerk/clerk-react";
-import { checkAdminStatus } from "@/store/useAuthStore";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Header from "./components/Header";
 import DashBoardStat from "./components/DashBoardStat";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
@@ -10,14 +8,10 @@ import SongsTabContent from "./components/SongsTabContent";
 import AlbumsTabContent from "./components/AlbumsTabContent";
 import { useEffect } from "react";
 import { fetchAlbum } from "@/store/useMusicStore";
-import { UseDispatch } from "react-redux";
-import { AppDispatch } from "@/store/store";
 
 const AdminPage = () => {
   const isAdmin = useSelector((state: any) => state.admin.isAdmin);
   const isLoading = useSelector((state: any) => state.admin.isLoading);
-
-  const dispatch = useDispatch<AppDispatch>();
 
   if (isAdmin && !isLoading) return <div>Unauthorised</div>;
 

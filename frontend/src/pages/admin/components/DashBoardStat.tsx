@@ -3,17 +3,29 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import StatsCard from "./StatsCard";
 
+type Stat = {
+  totalSongs: number;
+  totalAlbum: number;
+  totalArtists: number;
+  totalUsers: number;
+};
 const DashBoardStat = () => {
   const [isStatsLoading, setIsStatsLoading] = useState(false);
-  const [isSongsLoading, setIsSongsLoading] = useState(false);
-  const [stats, setStats] = useState(null); // Initialize as null
-  const [songs, setSongs] = useState(null); // For future use if needed
+  const [isSongsLoading] = useState(false);
+  const [stats, setStats] = useState<Stat>({
+    totalSongs: 0,
+    totalAlbum: 0,
+    totalArtists: 0,
+    totalUsers: 0,
+  }); // Initialize as null
 
   const fetchStats = async () => {
     setIsStatsLoading(true);
     try {
       const response = await axiosInstance.get("/stats");
       setStats(response.data);
+      console.log(response.data);
+      console.log(stats);
     } catch (error) {
       console.error("Error fetching stats:", error);
     } finally {
@@ -51,7 +63,7 @@ const DashBoardStat = () => {
     {
       icon: Library,
       label: "Total Albums",
-      value: stats?.totalAlbums?.toString() || "0", // Safe fallback
+      value: stats?.totalAlbum?.toString() || "0", // Safe fallback
       bgColor: "bg-violet-500/10",
       iconColor: "text-violet-500",
     },
