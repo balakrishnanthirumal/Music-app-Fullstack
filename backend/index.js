@@ -41,7 +41,7 @@ app.use(
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://music-app-fullstack.vercel.app",
     credentials: true,
   })
 );
