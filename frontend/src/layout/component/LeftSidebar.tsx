@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { HomeIcon, Library, MessageCircle } from "lucide-react";
+import { HomeIcon, Library } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { SignedIn } from "@clerk/clerk-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PlaylistSkeleton from "./skeletons/PlayListSkeleton";
 import { useDispatch, useSelector } from "react-redux";
