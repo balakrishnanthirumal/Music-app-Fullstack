@@ -41,7 +41,7 @@ app.use(
 
 app.use(
   cors({
-    origin: "https://music-app-fullstack-balakrishnan-ts-projects.vercel.app/",
+    origin: "https://music-app-fullstack.vercel.app",
     credentials: true,
   })
 );
