@@ -34,7 +34,7 @@ app.use(
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://music-app-backend-4.onrender.com/",
     credentials: true,
   })
 );
