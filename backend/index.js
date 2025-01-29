@@ -12,7 +12,7 @@ import fileUpload from "express-fileupload";
 import cors from "cors";
 import path from "path";
 import { createServer } from "http";
-import { initializeSocket } from "../backend/src/lib/socket.js";
+// import { initializeSocket } from "../backend/src/lib/socket.js";
 import { clerkMiddleware } from "@clerk/express";
 dotenv.config();
 
@@ -20,8 +20,8 @@ const app = express();
 
 const PORT = process.env.PORT;
 
-const httpServer = createServer(app);
-initializeSocket(httpServer);
+// const httpServer = createServer(app);
+// initializeSocket(httpServer);
 
 const __dirname = path.resolve();
 
@@ -63,7 +63,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-httpServer.listen(PORT, () => {
-  console.log("Server is running on port " + PORT);
-  connectDB();
+// httpServer.listen(PORT, () => {
+//   console.log("Server is running on port " + PORT);
+//   connectDB();
+// });
+
+app.listen(PORT, () => {
+  console.log("Server is running on port" + PORT);
 });
