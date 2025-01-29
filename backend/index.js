@@ -1,18 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
-import userRoutes from "./routes/userRoute.js";
-import authRoutes from "./routes/authRoute.js";
-import adminRoutes from "./routes/adminRoute.js";
-import songRoutes from "./routes/songRoute.js";
-import albumRoutes from "./routes/albumRoute.js";
-import statRoutes from "./routes/statRoute.js";
-import connectDB from "./lib/db.js";
-import { clerkMiddleware } from "@clerk/express";
+import userRoutes from "../backend/src/routes/userRoute.js";
+import authRoutes from "../backend/src/routes/authRoute.js";
+import adminRoutes from "../backend/src/routes/adminRoute.js";
+import songRoutes from "../backend/src/routes/songRoute.js";
+import albumRoutes from "../backend/src/routes/albumRoute.js";
+import statRoutes from "../backend/src/routes/statRoute.js";
+import connectDB from "../backend/src/lib/db.js";
+// import { clerkMiddleware } from "@clerk/express";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import path from "path";
 import { createServer } from "http";
-import { initializeSocket } from "../src/lib/socket.js";
+import { initializeSocket } from "../backend/src/lib/socket.js";
+import { clerkMiddleware } from "@clerk/express";
 dotenv.config();
 
 const app = express();
